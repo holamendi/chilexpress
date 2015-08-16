@@ -16,8 +16,6 @@ module Chilexpress
     Chilexpress::Shipment.new(shipment_attributes)
   end
 
-  private
-
   def self.get_document(order_number)
     Nokogiri::HTML(open("http://www.chilexpress.cl/Views/ChilexpressCL/Resultado-busqueda.aspx?DATA=#{order_number}"))
   end
@@ -39,12 +37,19 @@ module Chilexpress
     div = document.css('div.wigdet-content').select{ |div| div.text.include?('Datos de Descarga') }[0]
     return nil unless div
     receiver_info = div.css('ul li ul li')
-    Chilexpress::Receiver.new(
-      rut: receiver_info[0].children[1].text.strip[1..-1],
-      delivery_date: receiver_info[1].children[1].text.strip[1..-1],
-      delivery_time: receiver_info[2].children[1].text.strip[1..-1],
-      name: receiver_info[3].children[1].text.strip[1..-1]
-    )
+    receiver_attributes = {}
+
+    rut_index = receiver_info.to_a.each_index.select{ |i| receiver_info[i].children[0].text == 'Rut Receptor:' }[0]
+    name_index = receiver_info.to_a.each_index.select{ |i| receiver_info[i].children[0].text == 'Nombre Receptor:' }[0]
+    delivery_date_index = receiver_info.to_a.each_index.select{ |i| receiver_info[i].children[0].text == 'Fecha Entrega:' }[0]
+    delivery_time_index = receiver_info.to_a.each_index.select{ |i| receiver_info[i].children[0].text == 'Hora Entrega:' }[0]
+
+    receiver_attributes[:rut] = receiver_info[rut_index].children[1].text.strip[1..-1] if rut_index
+    receiver_attributes[:name] = receiver_info[name_index].children[1].text.strip[1..-1] if name_index
+    receiver_attributes[:delivery_date] = receiver_info[delivery_date_index].children[1].text.strip[1..-1] if delivery_date_index
+    receiver_attributes[:delivery_time] = receiver_info[delivery_time_index].children[1].text.strip[1..-1] if delivery_time_index
+
+    Chilexpress::Receiver.new(receiver_attributes)
   end
 
   def self.get_tracking_entries_from_document(document)
