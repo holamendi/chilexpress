@@ -1,6 +1,6 @@
 # Chilexpress
 
-Get Chilexpress shipment information
+Get Chilexpress shipment information.
 
 ## Installation
 
@@ -50,6 +50,11 @@ result.tracking_entries.each do |entry|
   puts entry.activity
 end
 ```
+
+## Todo
+
+- Write tests.
+- Multi thread ```Chilexpress.get_orders(order_number_array)``` method.
 
 ## Development
 

@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Pablo Orellana Mendiburú"]
   spec.email         = ["hola@mendi.cl"]
 
-  spec.summary       = %q{Chilexpress tracking}
-  spec.description   = %q{Provides a simple interface to track orders from Chilexpress}
+  spec.summary       = %q{Chilexpress shipment information}
+  spec.description   = %q{Provides a simple interface to get Chilexpress's shipment information}
   spec.homepage      = "https://github.com/holamendi/chilexpress"
   spec.license       = "MIT"
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
