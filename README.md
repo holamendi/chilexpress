@@ -21,11 +21,11 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-# you must provide a valid Chilexpress order code
-order_code = 123456
+# you must provide a valid Chilexpress tracking code
+tracking_code = '123456'
 
 # this will take a while, Chilexpress's site response time is quite slow
-result = Chilexpress.get_order(order_code)
+result = Chilexpress.get_order(tracking_code)
 
 # you can get the following shipment information
 puts result.order_number
@@ -54,7 +54,6 @@ end
 ## Todo
 
 - Write tests.
-- Multi thread ```Chilexpress.get_orders(order_number_array)``` method.
 
 ## Development
 
