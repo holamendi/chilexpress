@@ -17,7 +17,7 @@ module Chilexpress
   end
 
   def self.get_document(order_number)
-    Nokogiri::HTML(open("http://www.chilexpress.cl/Views/ChilexpressCL/Resultado-busqueda.aspx?DATA=#{order_number}"))
+    Nokogiri::HTML(open("https://www.chilexpress.cl/Views/ChilexpressCL/Resultado-busqueda.aspx?DATA=#{order_number}"))
   end
 
   def self.document_has_valid_order?(document)
